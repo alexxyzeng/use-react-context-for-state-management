@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserContext from './UserContext';
+import { UserConsumer } from './UserContext';
 import { login } from './api';
 
 class LoginPage extends React.Component {
@@ -8,12 +8,12 @@ class LoginPage extends React.Component {
     error: null,
     loading: false,
     username: '',
-    password: '',
+    password: ''
   };
 
   handleInputChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -32,13 +32,17 @@ class LoginPage extends React.Component {
     const { username, password, error, loading } = this.state;
 
     return (
-      <UserContext.Consumer>
+      <UserConsumer>
         {({ onLogin }) => (
           <div className="LoginPage">
             <form onSubmit={e => this.handleSubmit(e, onLogin)}>
               <label>
                 Username
-                <input name="username" value={username} onChange={this.handleInputChange} />
+                <input
+                  name="username"
+                  value={username}
+                  onChange={this.handleInputChange}
+                />
               </label>
               <label>
                 Password
@@ -56,7 +60,7 @@ class LoginPage extends React.Component {
             </form>
           </div>
         )}
-      </UserContext.Consumer>
+      </UserConsumer>
     );
   }
 }

@@ -3,36 +3,49 @@ import ReactDOM from 'react-dom';
 
 import LoginPage from './LoginPage';
 import MainPage from './MainPage';
-import UserContext from './UserContext';
+import { UserProvider, UserConsumer } from './UserContext';
 import './index.css';
 
-class Root extends React.Component {
-  state = {
-    currentUser: null,
-  };
+// class Root extends React.Component {
+//   state = {
+//     currentUser: null,
+//   };
 
-  handleLogin = user => {
-    this.setState({ currentUser: user });
-  };
+//   handleLogin = user => {
+//     this.setState({ currentUser: user });
+//   };
 
-  handleLogout = () => {
-    this.setState({ currentUser: null });
-  };
+//   handleLogout = () => {
+//     this.setState({ currentUser: null });
+//   };
 
-  render() {
-    const { currentUser } = this.state;
-    return (
-      <UserContext.Provider
-        value={{
-          user: currentUser,
-          onLogin: this.handleLogin,
-          onLogout: this.handleLogout,
-        }}
-      >
-        {currentUser ? <MainPage /> : <LoginPage />}
-      </UserContext.Provider>
-    );
-  }
+//   render() {
+//     const { currentUser } = this.state;
+//     return (
+//       <UserContext.Provider
+//         value={{
+//           user: currentUser,
+//           onLogin: this.handleLogin,
+//           onLogout: this.handleLogout,
+//         }}
+//       >
+//         {currentUser ? <MainPage /> : <LoginPage />}
+//       </UserContext.Provider>
+//     );
+//   }
+// }
+
+function Root() {
+  return (
+    <UserConsumer>
+      {({ user }) => (user ? <MainPage /> : <LoginPage />)}
+    </UserConsumer>
+  );
 }
 
-ReactDOM.render(<Root />, document.querySelector('#root'));
+ReactDOM.render(
+  <UserProvider>
+    <Root />
+  </UserProvider>,
+  document.querySelector('#root')
+);
