@@ -29,7 +29,7 @@ class Root extends React.Component {
           onLogout: this.handleLogout,
         }}
       >
-        {currentUser ? <MainPage /> : <LoginPage onLogin={this.handleLogin} />}
+        {currentUser ? <MainPage /> : <LoginPage />}
       </UserContext.Provider>
     );
   }
