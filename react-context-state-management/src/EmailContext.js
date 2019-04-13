@@ -7,12 +7,16 @@ let EmailContext;
 const { Provider, Consumer } = (EmailContext = React.createContext());
 
 class EmailProvider extends React.Component {
-  state = {
-    emails: [],
-    currentEmail: null,
-    error: null,
-    loading: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      emails: [],
+      currentEmail: null,
+      error: null,
+      loading: false,
+      onSelectEmail: this.handleSelectEmail
+    };
+  }
 
   componentDidMount() {
     this.setState({ loading: true, error: null });
@@ -42,16 +46,7 @@ class EmailProvider extends React.Component {
   };
 
   render() {
-    return (
-      <Provider
-        value={{
-          ...this.state,
-          onSelectEmail: this.handleSelectEmail
-        }}
-      >
-        {this.props.children}
-      </Provider>
-    );
+    return <Provider value={this.state}>{this.props.children}</Provider>;
   }
 }
 

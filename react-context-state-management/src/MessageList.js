@@ -18,11 +18,7 @@ const MessageList = () => {
       ) : (
         <ul>
           {emails.map(email => (
-            <Email
-              key={email.id}
-              email={email}
-              onClick={() => onSelectEmail(email)}
-            />
+            <Email key={email.id} email={email} onClick={onSelectEmail} />
           ))}
         </ul>
       )}
